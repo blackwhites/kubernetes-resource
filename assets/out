@@ -14,6 +14,16 @@ exec 1>&2 # redirect all output to stderr for logging
 
 source $(dirname $0)/common.sh
 
+# The first argument is a path to the directory containing the build's full set of sources.
+source=$1
+
+if [[ -z "$source" ]]; then
+  echo "usage: $0 <path/to/source>" >&2
+  exit 1
+fi
+
+cd "$source"
+
 # Print the last exit code if it isn't 0 when this process exits
 trap 'on_exit' EXIT
 
